@@ -9,12 +9,12 @@
 **Backend**: https://api.mesto.boris.stan.nomoredomains.rocks
 
 ## Запуск проекта
-    *_Frontend:_*
+    Frontend:
         
 `npm run start` — запускает проект в режиме разработки   
 `npm run build` — Соберет проект в папку build для продакшена
 
-    *_Backend:_*
+    Backend:
         
 `npm run start` — запускает сервер   
 `npm run dev` — запускает сервер с hot-reload
