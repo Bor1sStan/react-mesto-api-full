@@ -1,5 +1,5 @@
 const userRouter = require('express').Router();
-const userController = require('../controllers/users');
+const userController = require('../controllers/usersController');
 const { validateUserId, validateUserInfo, validateUserAvatar } = require('../utils/validators/userValidators');
 
 userRouter.get('/', userController.getUsers);

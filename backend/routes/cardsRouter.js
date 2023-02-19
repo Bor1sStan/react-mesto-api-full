@@ -1,5 +1,5 @@
 const cardRouter = require('express').Router();
-const cardController = require('../controllers/cards');
+const cardController = require('../controllers/cardsController');
 const { validateCardId, validateCardData } = require('../utils/validators/cardValidators');
 
 cardRouter.get('/', cardController.getCards);
