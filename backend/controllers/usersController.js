@@ -35,7 +35,7 @@ const logout = (req, res) => {
   res.clearCookie('token').send({ message: 'Вы вышли из профиля' });
 };
 
- const getUsers = (req, res, next) => {
+const getUsers = (req, res, next) => {
   User.find({}).then((users) => res.send(users))
     .catch(next);
 };
@@ -136,4 +136,4 @@ module.exports = {
   updateUserInfo,
   updateUserAvatar,
   getProfile,
-}
+};
