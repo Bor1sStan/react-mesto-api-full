@@ -5,14 +5,18 @@ const ErrorCode = require('../errors/errorCode');
 const NotFoundCode = require('../errors/notFoundCode');
 const ConflictEmail = require('../errors/conflictEmail');
 const { getJWTSecretKey } = require('../utils/utils');
+const UnauthorixedErrorCode = require('../errors/unauthorixedErrorCode');
 
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
   return User.findUser(email, password)
     .then((user) => {
+      if (!user) {
+        return next(new UnauthorixedErrorCode('Неправильный юзер. Чекай логин'));
+      }
       const token = jwt.sign({ _id: user._id }, getJWTSecretKey(), { expiresIn: '7d' });
-      res
-        .cookie('token', token, {
+      return res
+        .cookie('jwt', token, {
           maxAge: 3600000,
           httpOnly: true,
           sameSite: true,
@@ -30,7 +34,7 @@ module.exports.login = (req, res, next) => {
 };
 
 module.exports.logout = (req, res) => {
-  res.clearCookie('token').send({ message: 'Вы вышли из профиля' });
+  res.clearCookie('jwt').send({ message: 'Вы вышли из профиля' });
 };
 
 module.exports.getUsers = (req, res, next) => {
@@ -90,7 +94,10 @@ const updateUser = (req, res, next, userData) => {
     runValidators: true,
   })
     .then((user) => {
-      res.send(user);
+      if (!user) {
+        return next(new UnauthorixedErrorCode('Не тот пользователь'));
+      }
+      return res.send(user);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
