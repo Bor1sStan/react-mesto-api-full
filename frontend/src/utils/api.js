@@ -55,6 +55,7 @@ class Api {
 }
 const newApi = new Api({
   baseUrl: 'https://api.mesto.boris.stan.nomoredomains.rocks',
+  // baseUrl: 'http://localhost:3000',
 })
 
 export default newApi

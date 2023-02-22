@@ -1,3 +1,4 @@
+// export const BASE_URL = 'http://localhost:3000';
 export const BASE_URL = 'https://api.mesto.boris.stan.nomoredomains.rocks';
 
 export const register = (email, password) => {

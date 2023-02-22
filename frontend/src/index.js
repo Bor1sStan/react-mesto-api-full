@@ -6,8 +6,8 @@ import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 import './pages/index.css';
 import { HashRouter as Router,  Route,  Routes } from "react-router-dom";
-import SignIn from './components/signin';
-import SignUp from './components/signup';
+import SignIn from './components/sign-in';
+import SignUp from './components/sign-up';
 import ProtectedRoute from './components/ProtectedRoute';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

@@ -8,16 +8,8 @@
     "lint": "npx eslint .",
     "start": "node app.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/InnaRomanova/express-mesto-gha.git"
-  },
-  "author": "InnaRomanova",
+  "author": "BorisStan",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/InnaRomanova/express-mesto-gha/issues"
-  },
-  "homepage": "https://github.com/InnaRomanova/express-mesto-gha#readme",
   "devDependencies": {
     "eslint": "^8.2.0",
     "eslint-config-airbnb-base": "^15.0.0",

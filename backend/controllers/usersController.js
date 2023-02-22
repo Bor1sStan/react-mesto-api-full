@@ -1,14 +1,12 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
-
 const ErrorCode = require('../errors/errorCode');
 const NotFoundCode = require('../errors/notFoundCode');
 const ConflictEmail = require('../errors/conflictEmail');
-
 const { getJWTSecretKey } = require('../utils/utils');
 
-const login = (req, res, next) => {
+module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
   return User.findUser(email, password)
     .then((user) => {
@@ -19,7 +17,7 @@ const login = (req, res, next) => {
           httpOnly: true,
           sameSite: true,
           secure: true,
-          domain: 'api.mesto.boris.stna.nomoredomains.rocks',
+          // domain: 'api.mesto.boris.stan.nomoredomains.rocks',
         }).send({ email });
     })
     .catch((err) => {
@@ -31,16 +29,16 @@ const login = (req, res, next) => {
     });
 };
 
-const logout = (req, res) => {
+module.exports.logout = (req, res) => {
   res.clearCookie('token').send({ message: 'Вы вышли из профиля' });
 };
 
-const getUsers = (req, res, next) => {
+module.exports.getUsers = (req, res, next) => {
   User.find({}).then((users) => res.send(users))
     .catch(next);
 };
 
-const getUser = (req, res, next) => {
+module.exports.getUser = (req, res, next) => {
   User.findOne({ _id: req.params.id })
     .then((user) => {
       if (!user) {
@@ -57,7 +55,7 @@ const getUser = (req, res, next) => {
     });
 };
 
-const createUser = async (req, res, next) => {
+module.exports.createUser = async (req, res, next) => {
   const {
     name,
     about,
@@ -105,7 +103,7 @@ const updateUser = (req, res, next, userData) => {
     });
 };
 
-const updateUserInfo = (req, res, next) => {
+module.exports.updateUserInfo = (req, res, next) => {
   const userData = {
     name: req.body.name,
     about: req.body.about,
@@ -113,27 +111,15 @@ const updateUserInfo = (req, res, next) => {
   updateUser(req, res, next, userData);
 };
 
-const updateUserAvatar = (req, res, next) => {
+module.exports.updateUserAvatar = (req, res, next) => {
   const userData = {
     avatar: req.body.avatar,
   };
   updateUser(req, res, next, userData);
 };
 
-const getProfile = (req, res, next) => {
+module.exports.getProfile = (req, res, next) => {
   User.findOne({ _id: req.user._id })
     .then((user) => res.send(user))
     .catch(next);
-};
-
-module.exports = {
-  login,
-  logout,
-  getUser,
-  getUsers,
-  createUser,
-  updateUser,
-  updateUserInfo,
-  updateUserAvatar,
-  getProfile,
 };

@@ -6,5 +6,4 @@ export const currentUser = {
     avatar: '',
     _id: ''
 }
-
 export const CurrentUserContext = React.createContext();

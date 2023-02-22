@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import logo from '../images/logo-1.svg';
-
 import { Link, useLocation } from 'react-router-dom';
 import { useMediaQuery } from 'usehooks-ts';
-
 import MobileMenu from './elements/burger';
 import CloseButton from './elements/CloseButton';
 

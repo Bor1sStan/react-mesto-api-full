@@ -13,6 +13,7 @@ function PopupWithForm({ name, title, children, isOpen, onClose, buttonText, onS
                 onClose()
             }
         }
+
         if (isOpen) {
           document.addEventListener('keydown', closeByEsc);
         } else {document.removeEventListener('keydown', closeByEsc)};
@@ -22,7 +23,7 @@ function PopupWithForm({ name, title, children, isOpen, onClose, buttonText, onS
         } else {
             document.removeEventListener('mousedown', closeByOverlay);
         }
-    }, [isOpen]);
+    }, [isOpen])
 
     return (
         <div className={`popup ${isOpen && 'popup_opened'}`} id={`popup-${name}`}>

@@ -1,13 +1,13 @@
 import React from "react";
-import PopupWithForm from "./PopupWithForm.jsx";
+import PopupWithForm from "./PopupWithForm.js";
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
-    const avatarRef = React.useRef();
+    const avatarRef = React.useRef()
 
     function handleSubmit(e) {
         e.preventDefault();
-        onUpdateAvatar({ avatar: avatarRef.current.value }); 
-    };
+        onUpdateAvatar({ avatar: avatarRef.current.value });
+    }
 
     return (
         <PopupWithForm isOpen={isOpen} name="avatar" onClose={onClose} onSubmit={handleSubmit}>

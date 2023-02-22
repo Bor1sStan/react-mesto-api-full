@@ -4,7 +4,7 @@ function Footer() {
     return (
         <footer className="footer">
             <p className="footer__copyright" lang="en">
-                © 2023 Mesto Russia
+                © 2022 Mesto Russia
             </p>
         </footer>
     )

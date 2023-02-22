@@ -10,7 +10,6 @@ function Card({ card, onCardClick, onCardLike, onDeletePopup, setDeletedCard }) 
     const cardDeleteButtonClassName = (
         `elements__button-delete ${isOwn ? 'card__delete-button_visible' : 'card__delete-button_hidden'}`
     );
-    
     const cardLikeButtonClassName = (
         `elements__button-like ${isLiked ? 'elements__button-like_active' : 'elements__button-like'}`
     );
