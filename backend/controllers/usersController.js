@@ -11,9 +11,6 @@ module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
   return User.findUser(email, password)
     .then((user) => {
-      if (!user) {
-        throw new UnauthorixedErrorCode('Неправильный пользователь');
-      }
       const token = jwt.sign({ _id: user._id }, getJWTSecretKey(), { expiresIn: '7d' });
       res
         .cookie('token', token, {
@@ -22,7 +19,7 @@ module.exports.login = (req, res, next) => {
           sameSite: true,
           secure: true,
           // domain: 'api.mesto.boris.stan.nomoredomains.rocks',
-        }).send({ email });
+        }).send({ token });
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -35,6 +32,7 @@ module.exports.login = (req, res, next) => {
 
 module.exports.logout = (req, res) => {
   res.clearCookie('token').send({ message: 'Вы вышли из профиля' });
+  res.localStorage.removeItem('token');
 };
 
 module.exports.getUsers = (req, res, next) => {
@@ -94,6 +92,9 @@ const updateUser = (req, res, next, userData) => {
     runValidators: true,
   })
     .then((user) => {
+      if (!user) {
+        throw new UnauthorixedErrorCode('Нет такого пользователя');
+      }
       res.send(user);
     })
     .catch((err) => {
