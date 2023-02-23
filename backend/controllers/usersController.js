@@ -12,11 +12,11 @@ module.exports.login = (req, res, next) => {
   return User.findUser(email, password)
     .then((user) => {
       if (!user) {
-        return next(new UnauthorixedErrorCode('Неправильный юзер. Чекай логин'));
+        throw new UnauthorixedErrorCode('Неправильный пользователь');
       }
       const token = jwt.sign({ _id: user._id }, getJWTSecretKey(), { expiresIn: '7d' });
-      return res
-        .cookie('jwt', token, {
+      res
+        .cookie('token', token, {
           maxAge: 3600000,
           httpOnly: true,
           sameSite: true,
@@ -34,7 +34,7 @@ module.exports.login = (req, res, next) => {
 };
 
 module.exports.logout = (req, res) => {
-  res.clearCookie('jwt').send({ message: 'Вы вышли из профиля' });
+  res.clearCookie('token').send({ message: 'Вы вышли из профиля' });
 };
 
 module.exports.getUsers = (req, res, next) => {
@@ -94,10 +94,7 @@ const updateUser = (req, res, next, userData) => {
     runValidators: true,
   })
     .then((user) => {
-      if (!user) {
-        return next(new UnauthorixedErrorCode('Не тот пользователь'));
-      }
-      return res.send(user);
+      res.send(user);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
